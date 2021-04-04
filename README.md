@@ -1,5 +1,6 @@
 # Netcup Easteregg Crawler
 To use the crawler just run `./netcup_crawler.py`.
+For notifications, you need to install apprise beforehand: `pip3 install apprise`
 
 It will first crawl for different pages and saves them in the file `urls.txt`.
 After that it will use the api to check if there are any easter eggs.
