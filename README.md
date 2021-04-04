@@ -9,6 +9,9 @@ To specify what offer you are looking for, set the `search_for_offer` variable, 
 search_for_offer = "VPS Ostern L" # specify a offer to search for
 ```
 
+The offers are limited, if your desired one is found, try to buy it as quick as possible.
+If its out of stock, just let the crawler run during the day. They will add new ones from time to time.
+
 ## Use a telegram bot
 If you want you can specify the data of your telegram bot to receive a message when your desired offer is found:
 ```python
