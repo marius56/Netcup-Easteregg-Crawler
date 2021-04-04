@@ -1,7 +1,7 @@
 # Netcup Easteregg Crawler
 To use the crawler just run `./netcup_crawler.py`.
 
-If will first crawl for different pages and saves them in the file `urls.txt`.
+It will first crawl for different pages and saves them in the file `urls.txt`.
 After that it will use the api to check if there are any easter eggs.
 
 To specify what offer you are looking for, set the `search_for_offer` variable, e.g.:
