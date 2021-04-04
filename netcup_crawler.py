@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 import requests
 import re
 import os
@@ -120,7 +119,7 @@ if __name__ == "__main__":
                     print("Skipping crawl phase\n")
                     skip_crawling = False
 
-            if skip_crawling == True:
+            if skip_crawling == False:
                 print("Start crawling for urls....")
                 crawl_urls()
                 print("Crawling finished.")
