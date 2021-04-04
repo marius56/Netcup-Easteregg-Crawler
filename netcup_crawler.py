@@ -3,6 +3,7 @@ import re
 import os
 import time
 import urllib
+import argparse
 
 new_urls = ["https://www.netcup.de"]
 scanned_urls = []
@@ -10,11 +11,14 @@ scanned_urls = []
 url_re = re.compile(r'https?:\/\/(?!forum\.)[-_a-zA-Z0-9]*\.?netcup\.de[-a-zA-Z0-9@:%&._+~#=\/?]*')
 exclude_files__re = re.compile(r"(\.js|\.css)\??")
 
+telegram_use        = True
+telegram_bot_token  = "123123:AAAABBBCCC..."
+telegram_chat_id    = "123456"
+telegram_amout_msgs = 10 # amount of message you will receive if your offer is found
 
 def send_msg(message): # send a message via a telegram bot
-    pass
-    # if you want to send a telegram message via a bot, specify your details here:
-    #requests.get(f"https://api.telegram.org/bot<TelegramBotToken>/sendMessage?chat_id=<ChatId>&&parse_mode=Markdown&text={urllib.parse.quote_plus(message)}")
+    if telegram_use:
+        requests.get(f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage?chat_id={telegram_chat_id}&&parse_mode=Markdown&text={urllib.parse.quote_plus(message)}")
 
 def parse_response(response, url_file):
     global new_urls
@@ -82,9 +86,10 @@ def check_pages():
                             response = requests.get(offer_url)
                             
                             if "Produkt nicht verf" not in response.text: # check if the product is still available
-                                for x in range(10):
-                                    send_msg(f" >{egg['title']}< found!\nUrl: {offer_url}") #
-                                    time.sleep(1)
+                                if telegram_use:
+                                    for x in range(telegram_amout_msgs):
+                                        send_msg(f" >{egg['title']}< found!\nUrl: {offer_url}") #
+                                        time.sleep(1)
 
                                 print("Found what you were looking for!")
                                 return True
@@ -94,19 +99,24 @@ def check_pages():
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("-s", "--skip-crawling", action='store_true', dest="skip_crawling", help="Skipping the crawling phase")
+    args = parser.parse_args()
+    skip_crawling = args.skip_crawling
     try:
-        crawling = True
-        if os.path.isfile("./urls.txt"):
-            overwrite = input("Urls.txt exists, skip url crawling? [Y/n]: ")
+        if skip_crawling == False:
+            if os.path.isfile("./urls.txt"):
+                overwrite = input("Urls.txt exists, skip url crawling? [Y/n]: ")
 
-            if overwrite.lower() == "y" or overwrite == "":
-                print("Skipping crawl phase\n")
-                crawling = False
+                if overwrite.lower() == "y" or overwrite == "":
+                    print("Skipping crawl phase\n")
+                    crawling = False
 
-        if crawling == True:
-            print("Start crawling for urls....")
-            crawl_urls()
-            print("Crawling finished.")
+            if crawling == True:
+                print("Start crawling for urls....")
+                crawl_urls()
+                print("Crawling finished.")
 
         found = False
         while not found: 
