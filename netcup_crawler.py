@@ -5,18 +5,21 @@ import time
 import urllib
 import argparse
 
-new_urls = ["https://www.netcup.de"]
-scanned_urls = []
-
-url_re = re.compile(r'https?:\/\/(?!forum\.)[-_a-zA-Z0-9]*\.?netcup\.de[-a-zA-Z0-9@:%&._+~#=\/?]*')
-exclude_files__re = re.compile(r"(\.js|\.css)\??")
-
+##############################| Settings |##############################
 search_for_offer = "VPS Ostern L" # specify a offer to search for
 
 telegram_use        = False
 telegram_bot_token  = "123123:AAAABBBCCC..."
 telegram_chat_id    = "123456"
 telegram_amout_msgs = 10 # amount of message you will receive if your offer is found
+#_____________________________| Settings |______________________________
+
+
+new_urls = ["https://www.netcup.de"]
+scanned_urls = []
+
+url_re = re.compile(r'https?:\/\/(?!forum\.)[-_a-zA-Z0-9]*\.?netcup\.de[-a-zA-Z0-9@:%&._+~#=\/?]*')
+exclude_files__re = re.compile(r"(\.js|\.css)\??")
 
 def send_msg(message): # send a message via a telegram bot
     if telegram_use:
