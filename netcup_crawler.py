@@ -11,7 +11,9 @@ scanned_urls = []
 url_re = re.compile(r'https?:\/\/(?!forum\.)[-_a-zA-Z0-9]*\.?netcup\.de[-a-zA-Z0-9@:%&._+~#=\/?]*')
 exclude_files__re = re.compile(r"(\.js|\.css)\??")
 
-telegram_use        = True
+search_for_offer = "VPS Ostern L" # specify a offer to search for
+
+telegram_use        = False
 telegram_bot_token  = "123123:AAAABBBCCC..."
 telegram_chat_id    = "123456"
 telegram_amout_msgs = 10 # amount of message you will receive if your offer is found
@@ -81,7 +83,7 @@ def check_pages():
                                 
 
                         # If you are looking for something, specify the name and you will get a telegram message when its found
-                        if ".at-Domain" in egg["title"]: # e.g. --> if "VPS Ostern L" in egg["title"]:
+                        if search_for_offer in egg["title"]: # e.g. --> if "VPS Ostern L" in egg["title"]:
                             offer_url = f"https://www.netcup.de/bestellen/produkt.php?produkt={egg['product_id']}&hiddenkey={egg['product_key']}"
                             response = requests.get(offer_url)
                             
