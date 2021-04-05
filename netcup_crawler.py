@@ -166,7 +166,7 @@ if __name__ == "__main__":
 
                 if overwrite.lower() == "y" or overwrite == "":
                     print("Skipping crawl phase\n")
-                    skip_crawling = False
+                    skip_crawling = True
 
             if skip_crawling == False:
                 print("Start crawling for urls....")
