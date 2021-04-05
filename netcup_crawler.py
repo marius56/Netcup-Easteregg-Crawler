@@ -98,6 +98,7 @@ def crawl_urls():
 def check_pages():
     with open("./urls.txt", "r") as url_file:
         with open("./offers.csv", "w") as offer_file:
+            offer_file.write("Titel,Price,URL") # add the column titels for the .csv file
 
             for url in url_file.readlines():
                 url = url[:-1].replace(
@@ -115,10 +116,10 @@ def check_pages():
 
                     for egg in json_resp["eggs"]:
                         offer_file.write(
-                            f"\n{egg['title']},{egg['price'].replace(',', '.')} {egg['price_text']},https://www.netcup.de/bestellen/produkt.php?produkt={egg['product_id']}&hiddenkey={egg['product_key']}"
+                            f"\n\"{egg['title']}\",\"{egg['price'].replace(',', '.').replace('&euro;', '€')} {egg['price_text']}\",https://www.netcup.de/bestellen/produkt.php?produkt={egg['product_id']}&hiddenkey={egg['product_key']}"
                         )
                         print(
-                            f"{egg['title']},{egg['price'].replace(',', '.')} {egg['price_text']},https://www.netcup.de/bestellen/produkt.php?produkt={egg['product_id']}&hiddenkey={egg['product_key']}"
+                            f"{egg['title']} ({egg['price'].replace(',', '.').replace('&euro;', '€')} {egg['price_text']}): https://www.netcup.de/bestellen/produkt.php?produkt={egg['product_id']}&hiddenkey={egg['product_key']}"
                         )
 
                         # If you are looking for something, specify the name and you will get a telegram message when its found
